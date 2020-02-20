@@ -1,0 +1,50 @@
+.metric-title-container {
+    display: flex;
+    justify-content: space-between;
+    text-align: start;
+}
+
+.metric-container {
+    padding: 16px;
+}
+
+#metric-current-value {
+    text-align: start;
+    margin: 0;
+    color: #ffffff;
+}
+
+#metric-delta-icon {
+    display: inline-block;
+    line-height: 24px;
+    vertical-align: text-top;
+}
+
+#metric-delta {
+    font-weight: 0;
+    line-height: 24px;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    display: inline-block;
+}
+
+#metric-goal {
+    color: #ffffff;
+    background-color: #605E80;
+    text-align: end;
+    padding: 16px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: inline-block;
+
+}
+
+#metric-name {
+    font-weight: 0;
+    text-transform: uppercase;
+    line-height: 24px;
+    font-size: 16px;
+    color: #FFB900;
+    letter-spacing: 1.5px;
+}

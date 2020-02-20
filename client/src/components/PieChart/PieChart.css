@@ -1,0 +1,50 @@
+#circular-progress-bar-container {
+    width: 50%;
+    margin: auto;
+    margin: 16px auto 16px auto;
+}
+
+#pie-chart-container {
+    padding: 16px
+}
+
+#metric-legend-current-color {
+   background-color: #2790F8;
+}
+
+#metric-legend-current-value-container {
+    margin-bottom: 4px;
+}
+
+#metric-legend-goal-color {
+    background-color: #ccc;
+ }
+
+.metric-legend-color {
+    height: 20px;
+    width: 20px;
+    border-radius: 4px;
+}
+
+.metric-legend-title-label {
+    color: white;
+}
+
+.metric-legend-title-label {
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.metric-legend-description-conatiner {
+    display: flex;
+}
+
+.metric-legend-container {
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+}
+
+.metric-legend-value-label {
+    color: #ccc;
+}
