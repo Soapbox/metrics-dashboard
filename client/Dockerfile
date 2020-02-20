@@ -4,7 +4,7 @@ FROM node:13.7.0-alpine as build
 RUN mkdir -p /app/client
 WORKDIR /app/client
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /app/client/node_modules/.bin:$PATH
 
 COPY package.json /app/client
 COPY package-lock.json /app/client

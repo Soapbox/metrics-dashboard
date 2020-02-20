@@ -12,5 +12,4 @@ RUN npm install
 COPY . /app/server
 
 EXPOSE 3002
-
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "start" ]

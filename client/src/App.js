@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LineGraph from './components/line-graph-component/line-graph-component';
 import PieChart from './components/PieChart/PieChart';
 import InfoWidget from './components/InfoWidget/InfoWidget';
-import axios from 'axios';
+import axios from './AxiosInstance';
 import 'material-design-icons/iconfont/material-icons.css';
 import 'react-circular-progressbar/dist/styles.css';
 import './App.css';
@@ -57,7 +57,6 @@ class App extends Component {
 
   getMonthlyStats = async () => {
     const response = await axios.get('/profitwell/monthly');
-    console.log(`Response: ${response.data.recurring_revenue}`);
     this.setState({ monthly_recurring_revenue: response.data.recurring_revenue });
     this.setState({ churned_customers: response.data.churned_customers });
     this.setState({ active_customers: response.data.active_customers });
