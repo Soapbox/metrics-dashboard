@@ -3,17 +3,25 @@ version: '3'
 services:
   server:
     build: ./server
+    expose:
+      - 3002
     ports:
       - 3002:3002
     volumes:
      - ./server/src:/app/server/src
+    command: npm run dev
 
   client:
     build: ./client
+    environment:
+      - REACT_APP_PORT=3001
+    expose:
+      - 3001
     ports:
-      - 80:80
+      - 3001:3001
     volumes:
       - ./client/src:/app/client/src
       - ./client/public:/app/client/public
     depends_on:
       - server
+    command: npm run start

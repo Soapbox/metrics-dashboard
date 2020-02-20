@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LineGraph from './components/line-graph-component/line-graph-component';
 import PieChart from './components/PieChart/PieChart';
 import InfoWidget from './components/InfoWidget/InfoWidget';
-import axios from './AxiosInstance';
+import axios from 'axios';
 import 'material-design-icons/iconfont/material-icons.css';
 import 'react-circular-progressbar/dist/styles.css';
 import './App.css';

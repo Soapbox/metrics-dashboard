@@ -1,23 +1,16 @@
 #React Setup
-FROM node:13.7.0-alpine as build
+FROM node:13.7.0-alpine
 
 RUN mkdir -p /app/client
 WORKDIR /app/client
 
-ENV PATH /app/client/node_modules/.bin:$PATH
-
 COPY package.json /app/client
 COPY package-lock.json /app/client
 
-RUN npm install --silent
-RUN npm install react-scripts@3.3.0 -g --silent
+RUN npm install
 
 COPY . /app/client
 
-RUN npm run build
+EXPOSE 3001
 
-
-FROM nginx:1.16.0-alpine
-COPY --from=build /app/client/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "npm", "start" ]
