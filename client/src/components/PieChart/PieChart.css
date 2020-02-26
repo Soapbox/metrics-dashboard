@@ -9,7 +9,7 @@
 }
 
 #metric-legend-current-color {
-   background-color: #2790F8;
+   background-color: #2291F8;
 }
 
 #metric-legend-current-value-container {
@@ -46,5 +46,5 @@
 }
 
 .metric-legend-value-label {
-    color: #ccc;
+    color: white;
 }

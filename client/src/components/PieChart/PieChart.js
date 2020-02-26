@@ -17,10 +17,11 @@ const PieChart = props => {
                 </div>
             </div>
             <div id='circular-progress-bar-container'>
-                <CircularProgressbar id="circular-progress-bar" value={percentage} maxValue={props.metric_goal} text={percentage} strokeWidth='2'
+                <CircularProgressbar id="circular-progress-bar" value={percentage} maxValue={props.metric_goal} text={percentage} strokeWidth='4'
                     styles={buildStyles({
-                        pathColor: '#2790F8',
-                        textColor: '#2790F8',
+                        pathColor: '#2291F8',
+                        textColor: '#FFFFFF',
+                        textSize: '40px',
                     })} />
             </div>
             <div id="metric-legend-current-value-container" className="metric-legend-container">
