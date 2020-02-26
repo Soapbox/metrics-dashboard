@@ -119,9 +119,10 @@ getNewCustomersThisWeek = (currentMonthResponse, prevMonthResponse) => {
     let newCustomersThisWeek = 0;
     const currentDate = new Date();
 
-    const lastWeekDate = currentDate.getDate() - 7;
+    const lastWeekDate = currentDate.getDate() - currentDate.getDay();
     const lastWeek = new Date();
     lastWeek.setDate(lastWeekDate);
+    lastWeek.setHours(0,0,0,0);
 
     const newCustomersThisMonth = currentMonthResponse.data.data.new_customers;
     const newCustomersLastMonth = prevMonthResponse.data.data.new_customers;
@@ -147,11 +148,12 @@ getNewCustomersLastWeek = (currentMonthResponse, prevMonthResponse) => {
     let newCustomersLastWeek = 0;
     const currentDate = new Date();
 
-    const lastWeekDate = currentDate.getDate() - 7;
+    const lastWeekDate = currentDate.getDate() - currentDate.getDay();
     const lastWeek = new Date();
     lastWeek.setDate(lastWeekDate);
+    lastWeek.setHours(0,0,0,0);
 
-    const twoWeeksAgoDate = currentDate.getDate() - 14;
+    const twoWeeksAgoDate = lastWeek.getDate() - 7;
     const twoWeeksAgo = new Date();
     twoWeeksAgo.setDate(twoWeeksAgoDate);
 
