@@ -75,36 +75,41 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <LineGraph
-          metric_name="MRR"
-          metric_delta={this.state.monthly_recurring_revenue.recurring_revenue_delta}
-          metric_current_value={this.state.monthly_recurring_revenue.recurring_revenue}
-          metric_line_data={this.state.monthly_recurring_revenue.quarterly_recurring_revenue}
-          metric_goal="13000" />
-        <PieChart
-          metric_name="Active Customers"
-          metric_delta={this.state.active_customers.active_customers_delta}
-          metric_current_value={this.state.active_customers.active_customers}
-          metric_goal={this.state.active_customers.active_customers_goal} />
-        <PieChart
-          metric_name="New Customers This Week"
-          metric_delta={this.state.new_customers_this_week.new_customers_this_week_delta}
-          metric_current_value={this.state.new_customers_this_week.new_customers_this_week}
-          metric_goal={this.state.new_customers_this_week.new_customers_this_week_goal} />
-        <InfoWidget
-          metric_name="New Customers Today"
-          metric_delta={this.state.daily_customers.daily_cutomers_delta}
-          metric_current_value={this.state.daily_customers.daily_customer} />
-        <InfoWidget
-          metric_name="Churns This Month"
-          metric_delta={this.state.churned_customers.churned_customers_delta}
-          metric_current_value={this.state.churned_customers.churned_customers} />
-        <InfoWidget
-          metric_name="Soapboxes Created This Week"
-          metric_delta={this.state.soapboxes_created.soapboxes_created_delta}
-          metric_current_value={this.state.soapboxes_created.soapboxes_created} />
-      </div>
+      <React.Fragment>
+        <div className="app-title">
+          <h1>Soapbox Pirate Metrics</h1>
+        </div>
+        <div className="App">
+          <LineGraph
+            metric_name="MRR"
+            metric_delta={this.state.monthly_recurring_revenue.recurring_revenue_delta}
+            metric_current_value={this.state.monthly_recurring_revenue.recurring_revenue}
+            metric_line_data={this.state.monthly_recurring_revenue.quarterly_recurring_revenue}
+            metric_goal="13000" />
+          <PieChart
+            metric_name="Active Customers"
+            metric_delta={this.state.active_customers.active_customers_delta}
+            metric_current_value={this.state.active_customers.active_customers}
+            metric_goal={this.state.active_customers.active_customers_goal} />
+          <PieChart
+            metric_name="New Customers This Week"
+            metric_delta={this.state.new_customers_this_week.new_customers_this_week_delta}
+            metric_current_value={this.state.new_customers_this_week.new_customers_this_week}
+            metric_goal={this.state.new_customers_this_week.new_customers_this_week_goal} />
+          <InfoWidget
+            metric_name="New Customers Today"
+            metric_delta={this.state.daily_customers.daily_cutomers_delta}
+            metric_current_value={this.state.daily_customers.daily_customer} />
+          <InfoWidget
+            metric_name="Churns This Month"
+            metric_delta={this.state.churned_customers.churned_customers_delta}
+            metric_current_value={this.state.churned_customers.churned_customers} />
+          <InfoWidget
+            metric_name="Soapboxes Created This Week"
+            metric_delta={this.state.soapboxes_created.soapboxes_created_delta}
+            metric_current_value={this.state.soapboxes_created.soapboxes_created} />
+        </div>
+      </React.Fragment>
     );
   }
 }

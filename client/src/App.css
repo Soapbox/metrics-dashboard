@@ -18,7 +18,10 @@
 .negative-delta {
   color: #ff007f;
 }
-
+.app-title h1 {
+  margin: 16px;
+  font-size: 5vw;
+}
 .container {
     background-color: #000a38;
     border-radius: 4px;
