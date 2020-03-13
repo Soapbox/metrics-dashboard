@@ -12,7 +12,7 @@
     text-align: start;
     margin: 0;
     color: #ffffff;
-    font-size: 100px;
+    font-size: 5vw;
 }
 
 #metric-delta-icon {
@@ -48,4 +48,20 @@
     font-size: 24px;
     color: #FFB900;
     letter-spacing: 1.5px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .App {
+      grid-template-columns: repeat(2, minmax(0, 1fr) );
+    }
+
+    #metric-name {
+        line-height: 24px;
+        font-size: 18px;
+    }
+
+    #metric-delta {
+        line-height: 24px;
+        font-size: 18px;
+    }
 }

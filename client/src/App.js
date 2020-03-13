@@ -75,7 +75,7 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <React.Fragment style={{backgroundColor: '#EDF1F7'}}>
         <div className="app-title">
           <h1>Soapbox Pirate Metrics</h1>
         </div>
