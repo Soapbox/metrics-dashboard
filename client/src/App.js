@@ -75,22 +75,11 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment style={{backgroundColor: '#EDF1F7'}}>
+      <React.Fragment style={{ backgroundColor: '#EDF1F7' }}>
         <div className="app-title">
           <h1>Soapbox Pirate Metrics</h1>
         </div>
         <div className="App">
-          <LineGraph
-            metric_name="MRR"
-            metric_delta={this.state.monthly_recurring_revenue.recurring_revenue_delta}
-            metric_current_value={this.state.monthly_recurring_revenue.recurring_revenue}
-            metric_line_data={this.state.monthly_recurring_revenue.quarterly_recurring_revenue}
-            metric_goal="13000" />
-          <PieChart
-            metric_name="Active Customers"
-            metric_delta={this.state.active_customers.active_customers_delta}
-            metric_current_value={this.state.active_customers.active_customers}
-            metric_goal={this.state.active_customers.active_customers_goal} />
           <PieChart
             metric_name="New Customers This Week"
             metric_delta={this.state.new_customers_this_week.new_customers_this_week_delta}
@@ -108,6 +97,19 @@ class App extends Component {
             metric_name="Soapboxes Created This Week"
             metric_delta={this.state.soapboxes_created.soapboxes_created_delta}
             metric_current_value={this.state.soapboxes_created.soapboxes_created} />
+          <LineGraph
+            className="monthly-recurring-revenue"
+            metric_name="MRR"
+            metric_delta={this.state.monthly_recurring_revenue.recurring_revenue_delta}
+            metric_current_value={this.state.monthly_recurring_revenue.recurring_revenue}
+            metric_line_data={this.state.monthly_recurring_revenue.quarterly_recurring_revenue}
+            metric_goal="13000" />
+          <PieChart
+            className="active-customers"
+            metric_name="Active Customers"
+            metric_delta={this.state.active_customers.active_customers_delta}
+            metric_current_value={this.state.active_customers.active_customers}
+            metric_goal={this.state.active_customers.active_customers_goal} />
         </div>
       </React.Fragment>
     );

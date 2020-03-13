@@ -3,15 +3,20 @@
 }
 
 .App {
-  text-align: center;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: 1fr;
-  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
   grid-gap: 32px;
-  padding: 16px;
-  overflow: hidden;
+  padding: 5em;
   background-color: #EDF1F7;
+}
+
+.monthly-recurring-revenue {
+  grid-column: 1/3;
+}
+
+.active-customers {
+  grid-column: 3/5;
 }
 
 .positive-delta {
@@ -27,7 +32,7 @@
   background-color: #EDF1F7;
 }
 .container {
-    background-color: #000a38;
+    background-color: white;
     border-radius: 4px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }

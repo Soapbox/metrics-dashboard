@@ -8,7 +8,7 @@ const PieChart = props => {
     const deltaClass = props.metric_delta >= 0 ? 'positive-delta' : 'negative-delta';
 
     return (
-        <div id="pie-chart-container" className="container">
+        <div id="pie-chart-container" className={["container", props.className].join(' ')}>
             <div className="metric-title-container">
                 <h3 id="metric-name">{props.metric_name}</h3>
                 <div id="metric-delta-container">

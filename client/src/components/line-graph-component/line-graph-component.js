@@ -32,20 +32,18 @@ const LineGraph = props => {
     const metricValueWithCurrency = parseFloat(props.metric_current_value).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
     return (
-        <div className="container">
+        <div className={["container", props.className].join(' ')}>
             <div className="metric-container">
-                <div className="metric-title-container">
-                    <h3 id="metric-name">{props.metric_name}</h3>
-                    <div id="metric-delta-container">
-                        <i id="metric-delta-icon" className={["material-icons", deltaClass].join(' ')}>{deltaIcon}</i>
-                        <h4 id="metric-delta" className={deltaClass}>{Math.abs(props.metric_delta)}%</h4>
-                    </div>
+                <div id="metric-delta-container">
+                    <i id="metric-delta-icon" className={["material-icons", deltaClass].join(' ')}>{deltaIcon}</i>
+                    <h4 id="metric-delta" className={deltaClass}>{Math.abs(props.metric_delta)}%</h4>
                 </div>
                 <h1 id="metric-current-value">{metricValueWithCurrency}</h1>
             </div>
             <div style={{ width: 'auto', height: '100px' }}>
                 <Chart id="metric-chart" data={data} series={series} axes={axes} />
             </div>
+            <h3 id="metric-name">{props.metric_name}</h3>
         </div>
     );
 }
