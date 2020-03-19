@@ -1,8 +1,17 @@
 const express = require('express');
 const app = express();
 const axios = require('./config/AxiosInstance');
+const CLIENT_BUILD_PATH = path.join(__dirname, "../../client/build");
 
 require('dotenv').config();
+
+// Static files
+app.use(express.static(CLIENT_BUILD_PATH));
+
+// Server React Client
+app.get("/", function(req, res) {
+  res.sendFile(path.join(CLIENT_BUILD_PATH , "index.html"));
+});
 
 app.get("/metrics-api", (req, res) => {
     res.send("Soapbox Pirate Metrics");
@@ -218,5 +227,5 @@ app.get("/mixpanel/soapboxes_created", async (req, res) => {
     res.send({ soapboxes_created: soapboxesCreatedObject })
 });
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 8080;
 app.listen(port);
