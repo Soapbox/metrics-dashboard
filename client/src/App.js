@@ -77,7 +77,7 @@ class App extends Component {
     return (
       <React.Fragment style={{backgroundColor: '#EDF1F7'}}>
         <div className="app-title">
-          <h1>Soapbox Pirate Metrics</h1>
+          <h1>Soapbox Metrics</h1>
         </div>
         <div className="App">
           <LineGraph

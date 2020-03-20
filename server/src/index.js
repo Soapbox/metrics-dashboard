@@ -3,29 +3,41 @@ const app = express();
 const axios = require('./config/AxiosInstance');
 const path = require('path');
 const CLIENT_BUILD_PATH = path.join(__dirname, "../../client/build");
+const passport = require('passport');
+const Strategy = require('passport-http').BasicStrategy;
 
 require('dotenv').config();
+
+passport.use(new Strategy(
+    function (username, password, done) {
+        if (username === process.env.CLIENT_USER && password === process.env.CLIENT_SECRET) {
+            return done(null, username);
+        } else {
+            return done(null, false);
+        }
+    }
+));
 
 // Static files
 app.use(express.static(CLIENT_BUILD_PATH));
 
 // Server React Client
-app.get("/", function(req, res) {
-  res.sendFile(path.join(CLIENT_BUILD_PATH , "index.html"));
-});
-
-app.get("/metrics-api", (req, res) => {
-    res.send("Soapbox Pirate Metrics");
-});
-
-app.get("/profitwell/monthly", async (req, res) => {
-    const response = await axios.ProfitWell.get('/monthly/');
-    res.send({
-        recurring_revenue: getRecurringRevenue(response),
-        churned_customers: getChurnedCustomers(response),
-        active_customers: getActiveCustomers(response)
+app.get("/",
+    passport.authenticate('basic', { session: false }),
+    function (req, res) {
+        res.sendFile(path.join(CLIENT_BUILD_PATH, "index.html"));
     });
-});
+
+app.get("/profitwell/monthly",
+    passport.authenticate('basic', { session: false }),
+    async (req, res) => {
+        const response = await axios.ProfitWell.get('/monthly/');
+        res.send({
+            recurring_revenue: getRecurringRevenue(response),
+            churned_customers: getChurnedCustomers(response),
+            active_customers: getActiveCustomers(response)
+        });
+    });
 
 getRecurringRevenue = response => {
     const recurringRevenue = response.data.data.recurring_revenue;
@@ -83,21 +95,23 @@ getActiveCustomers = response => {
     }
 }
 
-app.get("/profitwell/daily", async (req, res) => {
-    const date = new Date();
-    const currentMonth = formatMonth(date.getMonth());
-    const currentMonthResponse = await axios.ProfitWell.get('daily/?month=' + date.getFullYear() + '-' + currentMonth);
+app.get("/profitwell/daily",
+    passport.authenticate('basic', { session: false }),
+    async (req, res) => {
+        const date = new Date();
+        const currentMonth = formatMonth(date.getMonth());
+        const currentMonthResponse = await axios.ProfitWell.get('daily/?month=' + date.getFullYear() + '-' + currentMonth);
 
-    const prevMonthDate = new Date();
-    prevMonthDate.setMonth(date.getMonth() - 1);
-    const prevMonth = formatMonth(prevMonthDate.getMonth());
-    const prevMonthResponse = await axios.ProfitWell.get('/daily/?month=' + prevMonthDate.getFullYear() + '-' + prevMonth);
+        const prevMonthDate = new Date();
+        prevMonthDate.setMonth(date.getMonth() - 1);
+        const prevMonth = formatMonth(prevMonthDate.getMonth());
+        const prevMonthResponse = await axios.ProfitWell.get('/daily/?month=' + prevMonthDate.getFullYear() + '-' + prevMonth);
 
-    res.send({
-        daily_customers: getNewCustomersToday(currentMonthResponse, prevMonthResponse),
-        new_customers_this_week: getNewWeeklyCustomers(currentMonthResponse, prevMonthResponse)
-    })
-});
+        res.send({
+            daily_customers: getNewCustomersToday(currentMonthResponse, prevMonthResponse),
+            new_customers_this_week: getNewWeeklyCustomers(currentMonthResponse, prevMonthResponse)
+        })
+    });
 
 getNewCustomersToday = (currentMonthResponse, prevMonthResponse) => {
     const date = new Date();
@@ -132,7 +146,7 @@ getNewCustomersThisWeek = (currentMonthResponse, prevMonthResponse) => {
     const lastWeekDate = currentDate.getDate() - currentDate.getDay();
     const lastWeek = new Date();
     lastWeek.setDate(lastWeekDate);
-    lastWeek.setHours(0,0,0,0);
+    lastWeek.setHours(0, 0, 0, 0);
 
     const newCustomersThisMonth = currentMonthResponse.data.data.new_customers;
     const newCustomersLastMonth = prevMonthResponse.data.data.new_customers;
@@ -161,7 +175,7 @@ getNewCustomersLastWeek = (currentMonthResponse, prevMonthResponse) => {
     const lastWeekDate = currentDate.getDate() - currentDate.getDay();
     const lastWeek = new Date();
     lastWeek.setDate(lastWeekDate);
-    lastWeek.setHours(0,0,0,0);
+    lastWeek.setHours(0, 0, 0, 0);
 
     const twoWeeksAgoDate = lastWeek.getDate() - 7;
     const twoWeeksAgo = new Date();
@@ -210,23 +224,25 @@ formatMonth = month => {
     return ("0" + (month + 1)).slice(-2);
 }
 
-app.get("/mixpanel/soapboxes_created", async (req, res) => {
-    const event = ['SoapBox Created'];
-    const encodedEvent = encodeURIComponent(JSON.stringify(event));
-    const soapboxesCreated = await axios.Mixpanel.get("events/?event=" + encodedEvent + "&type=unique&unit=week");
+app.get("/mixpanel/soapboxes_created",
+    passport.authenticate('basic', { session: false }),
+    async (req, res) => {
+        const event = ['SoapBox Created'];
+        const encodedEvent = encodeURIComponent(JSON.stringify(event));
+        const soapboxesCreated = await axios.Mixpanel.get("events/?event=" + encodedEvent + "&type=unique&unit=week");
 
-    const soapboxesCreatedThisWeek = soapboxesCreated.data.data.values[event[0]][Object.keys(soapboxesCreated.data.data.values[event[0]])[0]];
-    const prevSoapboxesCreatedThisWeek = soapboxesCreated.data.data.values[event[0]][Object.keys(soapboxesCreated.data.data.values[event[0]])[1]];
-    const soapboxesCreatedDelta = (((soapboxesCreatedThisWeek - prevSoapboxesCreatedThisWeek) / prevSoapboxesCreatedThisWeek) * 100).toFixed(1);
+        const soapboxesCreatedThisWeek = soapboxesCreated.data.data.values[event[0]][Object.keys(soapboxesCreated.data.data.values[event[0]])[0]];
+        const prevSoapboxesCreatedThisWeek = soapboxesCreated.data.data.values[event[0]][Object.keys(soapboxesCreated.data.data.values[event[0]])[1]];
+        const soapboxesCreatedDelta = (((soapboxesCreatedThisWeek - prevSoapboxesCreatedThisWeek) / prevSoapboxesCreatedThisWeek) * 100).toFixed(1);
 
-    const soapboxesCreatedObject = {
-        soapboxes_created: soapboxesCreatedThisWeek,
-        prev_soapboxes_created: prevSoapboxesCreatedThisWeek,
-        soapboxes_created_delta: soapboxesCreatedDelta
-    }
+        const soapboxesCreatedObject = {
+            soapboxes_created: soapboxesCreatedThisWeek,
+            prev_soapboxes_created: prevSoapboxesCreatedThisWeek,
+            soapboxes_created_delta: soapboxesCreatedDelta
+        }
 
-    res.send({ soapboxes_created: soapboxesCreatedObject })
-});
+        res.send({ soapboxes_created: soapboxesCreatedObject })
+    });
 
 const port = process.env.PORT || 8080;
 app.listen(port);
