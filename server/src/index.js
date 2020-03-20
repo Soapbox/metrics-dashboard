@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const axios = require('./config/AxiosInstance');
+const path = require('path');
 const CLIENT_BUILD_PATH = path.join(__dirname, "../../client/build");
 
 require('dotenv').config();
